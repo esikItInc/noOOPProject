@@ -1,5 +1,6 @@
 <?php
 
+
 $connect = mysqli_connect('localhost', 'root', '', 'firstapp');
 
 $query = mysqli_query($connect, 'SELECT * FROM cars');
@@ -17,40 +18,55 @@ $cars = mysqli_fetch_all($query);
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
-<form action="store.php" method="post">
-    <div>
-        <label for="name">Название машины</label>
-        <input type="text" name="name" id="name">
-    </div>
 
-    <div>
-        <label for="description">Описание</label>
-        <input type="text" name="description" id="description">
-    </div>
+<div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+        <h5 class="text-white h4"><a>Главная</a></h5>
+        <h5 class="text-white h4"><a>Категории</a></h5>
+        <h5 class="text-white h4"><a>Продуция</a></h5>
 
-    <div>
-        <label for=price>Цена</label>
-        <input type="text" name="price" id="price">
     </div>
-
-    <div>
-      <button type="submit">Создать</button>
+</div>
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
     </div>
-</form>
-<?php
-foreach ($cars as $car)
-{
-    echo "<h1>$car[1]</h1>";
-    echo "<p>$car[2]</p>";
-    echo "<p><b>$car[3] руб</b></p>";
-    echo '<p><img src="'.$car[4].'" alt="" width="150"></p>';
-    echo '<a href="edit.php?id='.$car[0].'">Редактировать</a><br>';
-    echo '<a href="delete.php?id='.$car[0].'">Удалить</a>';
+</nav>
 
-}
-?>
+<div class="card" style="width: 18rem;">
+    <?php
+    foreach ($cars as $car)
+    {
+
+   ?>
+    <img src="/images/<?php echo $car[4]?>" class="card-img-top" alt="...">
+
+    <div class="card-body">
+        <p class="card-text"><?php echo $car[1]?></p>
+    </div>
+    <div class="card-body">
+        <p class="card-text"><?php echo $car[2]?></p>
+    </div>
+    <div class="card-body">
+        <p class="card-text"><b><?php echo $car[3]?> $</b></p>
+    </div>
+        <div>
+            <a href="edit.php?id=<?php echo $car[0]?>">Редактровать</a>
+            <a href="delete.php?id=<?php echo $car[0]?>">Удалить</a>
+        </div>
+    <?php
+    }
+
+    ?>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </body>
 </html>
